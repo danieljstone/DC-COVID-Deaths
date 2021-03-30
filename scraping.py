@@ -83,8 +83,11 @@ def deathdata(start_date,end_date):
                 pass
             time.sleep(3)
             
-deathdata("3/23/21","7/18/22")
+deathdata("3/03/20","3/28/22")
+#fixing one line of text captured
+deaths=deaths[deaths["age"]!="Tragically,"]
 
 deaths["date"]=pd.to_datetime(deaths.date)
+deaths["age"]=deaths.age.astype(int)
 
 deaths.to_csv("output.csv")
