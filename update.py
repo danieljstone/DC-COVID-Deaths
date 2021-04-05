@@ -55,3 +55,12 @@ deaths["date"]=pd.to_datetime(deaths.date)
 deaths["age"]=deaths.age.astype(int)
 
 deaths.to_csv("dc_covid_deaths.csv")
+
+
+#summary tables
+
+deathsbyage=pd.pivot_table(deaths,index="age",values="date", columns="gender",aggfunc="count").fillna(0)
+
+deathsbyage.to_csv("total_by_age_gender.csv")
+
+
