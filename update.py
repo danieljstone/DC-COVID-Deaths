@@ -14,7 +14,7 @@ import re
 import requests
 import time
 
-deaths=pd.read_csv("output.csv",index_col=0)
+deaths=pd.read_csv("dc_covid_deaths.csv",index_col=0)
 
 def deathupdate():
     global deaths
@@ -54,4 +54,4 @@ deathupdate()
 deaths["date"]=pd.to_datetime(deaths.date)
 deaths["age"]=deaths.age.astype(int)
 
-deaths.to_csv("output.csv")
+deaths.to_csv("dc_covid_deaths.csv")
