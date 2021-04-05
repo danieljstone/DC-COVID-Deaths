@@ -63,6 +63,7 @@ deaths.to_csv("dc_covid_deaths.csv")
 
 pd.pivot_table(deaths,index="age",values="date", columns="gender",aggfunc="count").fillna(0).to_csv("total_by_age_gender.csv")
 
+pd.pivot_table(deaths,index="age group",values="date", columns="gender",aggfunc="count").fillna(0).to_csv("total_by_age_group_gender.csv")
 
 
 
