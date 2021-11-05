@@ -18,7 +18,7 @@ deaths=pd.read_csv("dc_covid_deaths.csv",index_col=0)
 
 def deathupdate():
     global deaths
-    daterange=pd.date_range(deaths["date"].iloc[-1],dt.date.today())
+    daterange=pd.date_range(deaths["date"].iloc[-1],dt.date.today()- dt.timedelta(days=1))
     def deathurl(date):
         if date >= dt.date.today():
             return None
