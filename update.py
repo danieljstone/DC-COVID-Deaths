@@ -55,6 +55,7 @@ def deathupdate():
     deaths["date"]=pd.to_datetime(deaths.date)
     deaths["age"]=deaths.age.astype(int)
     deaths["age group"]=pd.cut(deaths["age"],[16, 19, 44, 64,200], precision=0, labels=["16-19","20-44","45-64","65+"])
+    deaths["agedecade"]=pd.cut(deaths["age"],[0, 9, 19, 29,39,49,59,69,79,200], precision=0, labels=["0-9","10-19","20-29","30-39","40-49","50-59","60-69","70-79","80+"])
     deaths.to_csv("dc_covid_deaths.csv")
 
 #summary tables
