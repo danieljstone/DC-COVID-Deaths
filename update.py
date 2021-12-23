@@ -67,6 +67,31 @@ def deathupdate():
 deathupdate()
 
 
+#for off instances where the url format is different
+
+
+def urlupdate(url):
+   global deaths
+   req = requests.get(url)
+   try:
+       soup=BeautifulSoup(req.text, "lxml")    
+       date=soup.select("div.content.clearfix > div.field.field-name-field-date.field-type-date.field-label-hidden > div > div > span").__str__().split('\"')[3][:10]
+       b=soup.find_all(string=re.compile("year-old"))
+       for x in b:
+           newline={}
+           newline["date"]=date
+           y=x.__str__().split()
+           newline["age"]=y[0].split("-")[0]
+           newline["gender"]=y[1]
+           newline["url"]=url
+           deaths=deaths.append(newline, ignore_index=True)
+   except:
+        pass
+   else:
+       time.sleep(3)
+
+
+
 
 
 
