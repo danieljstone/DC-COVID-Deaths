@@ -52,23 +52,27 @@ def deathupdate():
                 pass
             time.sleep(3)
             
+def tidy():
     deaths["date"]=pd.to_datetime(deaths.date)
     deaths["age"]=deaths.age.astype(int)
     deaths["age group"]=pd.cut(deaths["age"],[16, 19, 44, 64,200], precision=0, labels=["16-19","20-44","45-64","65+"])
     deaths["agedecade"]=pd.cut(deaths["age"],[0, 9, 19, 29,39,49,59,69,79,200], precision=0, labels=["0-9","10-19","20-29","30-39","40-49","50-59","60-69","70-79","80+"])
     deaths.to_csv("dc_covid_deaths.csv")
-
-#summary tables
-
+    deaths=deaths.sort_values(by=["date"])
     pd.pivot_table(deaths,index="age",values="date", columns="gender",aggfunc="count").fillna(0).to_csv("total_by_age_gender.csv")
     pd.pivot_table(deaths,index="age group",values="date", columns="gender",aggfunc="count").fillna(0).to_csv("total_by_age_group_gender.csv")
        
             
 deathupdate()
+tidy()
 
 
-#for off instances where the url format is different
 
+
+
+#for off instances where the url format is different, mainly when updates are posted after long weekends and the url deviates in form
+
+#missing reports December 4, 2020 (2 deaths)
 
 def urlupdate(url):
    global deaths
@@ -91,9 +95,18 @@ def urlupdate(url):
        time.sleep(3)
 
 
+feb26fix=['https://coronavirus.dc.gov/release/coronavirus-data-february-18-21-2022',
+'https://coronavirus.dc.gov/release/coronavirus-data-february-11-13-2022',
+'https://coronavirus.dc.gov/release/coronavirus-data-february-4-6-2022',
+'https://coronavirus.dc.gov/release/coronavirus-data-january-28-30-2022',
+'https://coronavirus.dc.gov/release/coronavirus-data-january-21-23-2022-0',
+'https://coronavirus.dc.gov/release/coronavirus-data-january-14-17-2022',
+'https://coronavirus.dc.gov/release/coronavirus-data-january-7-9-2022',
+'https://coronavirus.dc.gov/release/coronavirus-data-december-30-2021-%E2%80%93-january-2-2022']
 
-
-
+for url in feb26fix:
+    urlupdate(url)
+tidy()
 
 
 
